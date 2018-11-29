@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Nova;
+
+use App\Nova\Metrics\BloodPressureReadingsPerDay;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
+class BloodPressureReading extends Resource
+{
+    /**
+     * The model the resource corresponds to.
+     *
+     * @var string
+     */
+    public static $model = 'App\BloodPressureReading';
+
+    /**
+     * The single value that should be used to represent the resource when being displayed.
+     *
+     * @var string
+     */
+    public static $title = 'date';
+
+    /**
+     * The columns that should be searched.
+     *
+     * @var array
+     */
+    public static $search = [
+        'id', 'date','systolic', 'diastolic', 'bpm'
+    ];
+
+    /**
+     * Get the fields displayed by the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function fields(Request $request)
+    {
+        return [
+            ID::make()->sortable()->hideFromIndex(),
+            DateTime::make('Date Recorded','date')
+                ->format('YYYY-MM-DD HH:MM:SS')
+                ->creationRules('unique:blood_pressure_readings,date')
+                ->sortable(),
+            Number::make('Systolic')->sortable(),
+            Number::make('Diastolic')->sortable(),
+            Number::make('bpm')->sortable(),
+        ];
+    }
+
+    /**
+     * Get the cards available for the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function cards(Request $request)
+    {
+        return [
+            new BloodPressureReadingsPerDay
+        ];
+    }
+
+    /**
+     * Get the filters available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function filters(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the lenses available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function lenses(Request $request)
+    {
+        return [];
+    }
+
+    /**
+     * Get the actions available for the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function actions(Request $request)
+    {
+        return [];
+    }
+}
