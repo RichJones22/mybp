@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Nova;
 
 use App\Nova\Metrics\BloodPressureReadingsPerDay;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class BloodPressureReading extends Resource
 {
@@ -31,20 +32,21 @@ class BloodPressureReading extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'date','systolic', 'diastolic', 'bpm'
+        'id', 'date', 'systolic', 'diastolic', 'bpm',
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function fields(Request $request)
     {
         return [
             ID::make()->sortable()->hideFromIndex(),
-            DateTime::make('Date Recorded','date')
+            DateTime::make('Date Recorded', 'date')
                 ->format('YYYY-MM-DD HH:MM:SS')
                 ->creationRules('unique:blood_pressure_readings,date')
                 ->sortable(),
@@ -57,20 +59,22 @@ class BloodPressureReading extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function cards(Request $request)
     {
         return [
-            new BloodPressureReadingsPerDay
+            new BloodPressureReadingsPerDay(),
         ];
     }
 
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function filters(Request $request)
@@ -81,7 +85,8 @@ class BloodPressureReading extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function lenses(Request $request)
@@ -92,7 +97,8 @@ class BloodPressureReading extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function actions(Request $request)
