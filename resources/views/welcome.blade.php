@@ -80,18 +80,10 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <h1>My BP</h1>
+                <h2>Welcome to my blood pressure at mybp.premiseSoftware.com.</h2>
+                <h2>The place where you can store and track your</h2>
+                <h2>blood pressure for free.</h2>
             </div>
         </div>
     </body>
