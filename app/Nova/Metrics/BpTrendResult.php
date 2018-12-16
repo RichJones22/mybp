@@ -7,12 +7,12 @@ namespace App\Nova\Metrics;
 use Laravel\Nova\Metrics\TrendResult;
 
 /**
- * Class bpTrendResult.
+ * Class BpTrendResult.
  */
-class bpTrendResult extends TrendResult
+class BpTrendResult extends TrendResult
 {
     /**
-     * bpTrendResult constructor.
+     * BpTrendResult constructor.
      *
      * @param string|null $value
      */

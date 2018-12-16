@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+use Laravel\Nova\Http\Middleware\Authenticate;
 use Laravel\Nova\Http\Middleware\Authorize;
 use Laravel\Nova\Http\Middleware\BootTools;
-use Laravel\Nova\Http\Middleware\Authenticate;
 use Laravel\Nova\Http\Middleware\DispatchServingNovaEvent;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Nova App Name
@@ -61,8 +62,8 @@ return [
         'web',
         Authenticate::class,
         DispatchServingNovaEvent::class,
+//        CullNovaCardsFiltersLenses::class,
         BootTools::class,
         Authorize::class,
     ],
-
 ];

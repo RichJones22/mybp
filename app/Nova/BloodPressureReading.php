@@ -32,7 +32,11 @@ class BloodPressureReading extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'date', 'systolic', 'diastolic', 'bpm',
+        'id', 'date', 'systolic', 'diastolic', 'bpm', 'user_id',
+    ];
+
+    public static $with = [
+        'user',
     ];
 
     /**
@@ -53,6 +57,12 @@ class BloodPressureReading extends Resource
             Number::make('Systolic')->sortable(),
             Number::make('Diastolic')->sortable(),
             Number::make('bpm')->sortable(),
+            Number::make('user_id')
+                ->hideFromIndex()
+                ->hideFromDetail()
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->sortable(),
         ];
     }
 

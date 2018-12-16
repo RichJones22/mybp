@@ -74,9 +74,9 @@ class BloodPressureReadingsPerDay extends Trend
     /**
      * @param Request $request
      *
-     * @return bpTrendResult
+     * @return BpTrendResult
      */
-    public function customCountByDays(Request $request): bpTrendResult
+    public function customCountByDays(Request $request): BpTrendResult
     {
         /** @var BloodPressureReading $myBp */
         $myBp = app(BloodPressureReading::class);
@@ -100,8 +100,8 @@ class BloodPressureReadingsPerDay extends Trend
 
         /** @var array $possibleDateResults */
         $possibleDateResults = $this->getAllPossibleDateResults(
-            $startingDate = $this->getAggregateStartingDate($request, $unit),
-            $endingDate = Chronos::now(),
+            $this->getAggregateStartingDate($request, $unit),
+            Chronos::now(),
             $unit,
             $timezone,
             'true' === $request->twelveHourTime
@@ -123,6 +123,6 @@ class BloodPressureReadingsPerDay extends Trend
             $results
         );
 
-        return (new bpTrendResult($myResult->value))->trend($myResult->trend);
+        return (new BpTrendResult($myResult->value))->trend($myResult->trend);
     }
 }
