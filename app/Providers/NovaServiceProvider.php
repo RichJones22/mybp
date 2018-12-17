@@ -1,63 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
+use App\Nova\BloodPressureReading;
+use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Cards\Help;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
         parent::boot();
-    }
-
-    /**
-     * Register the Nova routes.
-     *
-     * @return void
-     */
-    protected function routes()
-    {
-        Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
-    }
-
-    /**
-     * Register the Nova gate.
-     *
-     * This gate determines who can access Nova in non-local environments.
-     *
-     * @return void
-     */
-    protected function gate()
-    {
-        Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                //
-            ]);
-        });
-    }
-
-    /**
-     * Get the cards that should be displayed on the Nova dashboard.
-     *
-     * @return array
-     */
-    protected function cards()
-    {
-        return [
-            new Help,
-        ];
     }
 
     /**
@@ -72,11 +34,71 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
-        //
+    }
+
+    /**
+     * Register the Nova routes.
+     */
+    protected function routes()
+    {
+        Nova::routes()
+                ->withAuthenticationRoutes()
+                ->withPasswordResetRoutes()
+                ->register();
+    }
+
+    /**
+     * Register the Nova gate.
+     *
+     * This gate determines who can access Nova in non-local environments.
+     */
+    protected function gate()
+    {
+        Gate::define('viewNova', function ($user) {
+            return \in_array($user->email, [
+            ], true);
+        });
+    }
+
+    /**
+     * Get the cards that should be displayed on the Nova dashboard.
+     *
+     * @return array
+     */
+    protected function cards()
+    {
+        return [
+            new Help(),
+        ];
+    }
+
+    /**
+     * Displays Resources on left panel.
+     * Checks if the NovaRequest user is an Admin.
+     */
+    protected function resources()
+    {
+        // we are overriding this guy, so don't load the parent.
+        // parent::resources();
+
+        $resources = [
+            BloodPressureReading::class,
+        ];
+
+        $adminResources = [
+            User::class,
+        ];
+
+        // if user is an Admin load both $resources and $adminResources;
+        // else just load $resources...
+        $isAdmin = app(NovaRequest::class)->user()->admin;
+        if ($isAdmin) {
+            Nova::resources(array_merge($resources, $adminResources));
+        } else {
+            Nova::resources($resources);
+        }
     }
 }
