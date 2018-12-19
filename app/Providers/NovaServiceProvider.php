@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Nova\BloodPressureReading;
+use App\Nova\Metrics\BloodPressureReadingsPerDay;
 use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
@@ -44,10 +45,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function routes()
     {
-        Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+        Nova::routes();
+
+        // since we are using the Laravel framework auth, there is
+        // no need to load Nova's auth
+//                ->withAuthenticationRoutes()
+//                ->withPasswordResetRoutes()
+//                ->register();
     }
 
     /**
@@ -59,6 +63,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         Gate::define('viewNova', function ($user) {
             return \in_array($user->email, [
+                \App\User::all()->toArray()
             ], true);
         });
     }
@@ -71,7 +76,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help(),
+            new BloodPressureReadingsPerDay(),
+//            new Help(),
         ];
     }
 
