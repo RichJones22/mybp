@@ -38,14 +38,14 @@ class CheckUserForcedLogoutState
      */
     public function hasUserBeenForcedToLogout(): bool
     {
-        /* @var User $user */
-//        $user = $this->getUser();
+        /** @var User $user */
+        $user = $this->getUser();
 
-        if (auth()->user()->forced_logout) {
-            auth()->logout();
+        if ($user->getAttribute('forced_logout')) {
             $this->setAndSaveUserForcedLogout(false);
 
-            return true;  // caller should perform a redirect('/')
+            return true;  // caller should perform an auth()->logout() and
+                          // redirect('/')
         }
 
         return false;
@@ -67,8 +67,10 @@ class CheckUserForcedLogoutState
         /** @var User $user */
         $user = $this->getUser();
 
-        $user->setAttribute('forced_logout', $value);
+        if ($user->getAttribute('llo_timestamp')) {
+            $user->setAttribute('forced_logout', $value);
 
-        $user->save();
+            $user->save();
+        }
     }
 }

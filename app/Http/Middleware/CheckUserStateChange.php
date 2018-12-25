@@ -45,6 +45,7 @@ class CheckUserStateChange
                 ->hasUserBeenForcedToLogout();
 
             if ($didStateChange) {
+                auth()->logout();
                 redirect('/');
             }
         }

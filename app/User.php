@@ -61,20 +61,21 @@ class User extends Authenticatable
                     throw new AdminCantChangeTheirAdminFlag();
                 }
 
+                // this is for none auth'ed users...
+                //
                 // user admin state has changed; force logoff, so that their
                 // Nova panel displays correctly.
-                {
-                    // get user from email.
-                    $user = self::query()
+
+                // get user from email.
+                $user = self::query()
                         ->where('email', $query->getAttribute('email'))
                         ->get()
                         ->first();
 
-                    // set user.forced_logout = 1.
-                    (new CheckUserForcedLogoutState())
+                // sets user.forced_logout to true.
+                (new CheckUserForcedLogoutState())
                         ->setUser($user)
                         ->forceUserLogout();
-                }
             }
         });
     }
