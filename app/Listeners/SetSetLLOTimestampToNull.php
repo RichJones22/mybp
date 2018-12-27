@@ -1,21 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
 use App\User;
-use Illuminate\Auth\Events\Logout;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Http\Request;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SetSetLLOTimestampToNull
 {
     /**
+     * On user login.
+     *
      * Handle the event.
      *
-     * @param  object $event
-     * @return void
+     * @param object $event
      */
     public function handle($event)
     {

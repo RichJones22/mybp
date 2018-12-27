@@ -6,7 +6,6 @@ namespace Tests\Browser\Login;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -41,7 +40,7 @@ class UserLoginTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             /** @var User $user */
             $user = create(User::class, [
-                'admin'=> true
+                'admin' => true,
             ]);
 
             $browser->loginAs($user)

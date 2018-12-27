@@ -25,11 +25,11 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        Login::class => [
+        Logout::class => [
             SetLLOTimestampToNow::class,
         ],
 
-        Logout::class => [
+        Login::class => [
             SetSetLLOTimestampToNull::class,
         ],
     ];

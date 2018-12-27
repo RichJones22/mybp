@@ -41,7 +41,7 @@ class CheckUserForcedLogoutState
         /** @var User $user */
         $user = $this->getUser();
 
-        if ($user->getAttribute('forced_logout')) {
+        if ($user->isForcedToLogout()) {
             $this->setAndSaveUserForcedLogout(false);
 
             return true;  // caller should perform an auth()->logout() and
@@ -67,7 +67,7 @@ class CheckUserForcedLogoutState
         /** @var User $user */
         $user = $this->getUser();
 
-        if ($user->getAttribute('llo_timestamp')) {
+        if ($user->isLoggedIn()) {
             $user->setAttribute('forced_logout', $value);
 
             $user->save();

@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Console\Helper\Table;
 
 class CreateBloodPressureReadings extends Migration
@@ -12,8 +14,6 @@ class CreateBloodPressureReadings extends Migration
 
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -30,7 +30,11 @@ class CreateBloodPressureReadings extends Migration
 
         // create foreign key to User
         Schema::table(self::TABLE_NAME, function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
+            if ('mysql' === Schema::getConnection()->getDriverName()) {
+                $table->unsignedInteger('user_id');
+            } else { // db is sqlite, which wants the default to be 'not null'
+                $table->unsignedInteger('user_id')->default('not null');
+            }
 
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -38,8 +42,6 @@ class CreateBloodPressureReadings extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

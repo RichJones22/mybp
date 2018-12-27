@@ -1,42 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Listeners;
 
-use App\Domain\State\GlobalInstance;
-use App\Domain\State\UsersLoggedIn;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Redis;
 
 class SetLLOTimestampToNow
 {
     /**
-     * Create the event listener.
+     * On user logout.
      *
-     * @return void
+     * Create the event listener.
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
-     * @return void
+     * @param object $event
      */
     public function handle($event)
     {
         /** @var User $user */
         $user = auth()->user();
 
-        session()->put('user_id', auth()->user()->id);
+        if (null !== $user) {
+            $user->setAttribute('llo_timestamp', Carbon::now());
 
-        $user->setAttribute('llo_timestamp', Carbon::now());
-
-        $user->save();
+            $user->save();
+        }
     }
 }

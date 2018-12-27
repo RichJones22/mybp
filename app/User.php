@@ -39,6 +39,16 @@ class User extends Authenticatable
         return $this->hasMany(BloodPressureReading::class);
     }
 
+    public function isLoggedIn()
+    {
+        return null === $this->getAttribute('llo_timestamp') ? true : false;
+    }
+
+    public function isForcedToLogout()
+    {
+        return $this->getAttribute('forced_logout');
+    }
+
     protected static function boot()
     {
         parent::boot();
