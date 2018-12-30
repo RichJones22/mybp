@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Laravel\Nova\Exceptions\AuthenticationException as NovaAuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,25 +46,39 @@ class Handler extends ExceptionHandler
      * @param \Exception               $exception
      *
      * @return \Illuminate\Http\Response
-     *
-     * @throws AuthenticationException
      */
     public function render($request, Exception $exception)
     {
-        /*
-         * - trap for NovaAuthenticationException
-         * - log the auth() user out
-         * - flush the session data.
-         * - throw a new AuthenticationException()
-         *   - this will cause the 'login' route to be called and not
-         *     the nova.login route.
-         */
-        if ($exception instanceof NovaAuthenticationException) {
-            auth()->logout();
-            $request->session()->flush();
-
-            throw new AuthenticationException();
-        }
+        //  2018-12:
+        //  - at this point the below has been commented out.
+        //  - I need a test for this before it uncommented.
+        //
+        //
+//        /*
+//         * - trap for NovaAuthenticationException
+//         * - log the auth() user out
+//         * - flush the session data.
+//         * - throw a new AuthenticationException()
+//         *   - this will cause the 'login' route to be called and not
+//         *     the nova.login route.
+//         */
+//        if ($exception instanceof NovaAuthenticationException) {
+//
+//            /** @var User $user */
+//            $user = auth()->user();
+//
+//            if (null !== $user) {
+//                $user->setAttribute('llo_timestamp', null);
+//                $user->setAttribute('forced_logout', false);
+//
+//                $user->save();
+//            }
+//
+//            auth()->logout();
+//            $request->session()->flush();
+//
+//            throw new AuthenticationException();
+//        }
 
         return parent::render($request, $exception);
     }

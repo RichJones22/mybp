@@ -27,13 +27,13 @@ class BloodPressureReading extends Model
     {
         parent::boot();
 
-        // only display blood_pressure_readings that are for a user_id
+        // only display blood_pressure_readings that are for the auth()->user()
         static::addGlobalScope('user_id', function (Builder $builder) {
             $builder->where('user_id', '=', auth()->user()->id);
         });
 
         // assign the user_id column on the blood_pressure_table the value
-        // of the logged in user id.
+        // of the auth()->user().
         static::creating(function ($query) {
             $query->user_id = auth()->user()->id;
         });
