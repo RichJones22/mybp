@@ -92,14 +92,21 @@ class UserTest extends TestCase
             'email' => 'bob@bob.com',
         ]);
 
-        // this will perform a Events\Login event.
+        // get refreshed $user from the db.
+        $user->refresh();
+
+        // check the before state
+        $this->assertNotNull($user->getAttribute('llo_timestamp'));
+        $this->assertTrue((bool) $user->getAttribute('forced_logout'));
+
+        // this will perform an Events\Login event.
         $this->guard()->login($user);
 
-        $user = User::query()
-            ->where('id', $user->getAttribute('id'))
-            ->first();
+        // get refreshed $user from the db.
+        $user->refresh();
 
+        // check the after state.
         $this->assertNull($user->getAttribute('llo_timestamp'));
-        $this->assertFalse((bool)$user->getAttribute('forced_logout'));
+        $this->assertFalse((bool) $user->getAttribute('forced_logout'));
     }
 }

@@ -52,7 +52,7 @@ class AdminTest extends DuskTestCase
                 ->where('email', $adminEmail)
                 ->first();
 
-            $this->assertEquals(true, (bool) $user->getAttribute('admin'));
+            $this->assertTrue((bool) $user->getAttribute('admin'));
         });
     }
 
@@ -92,8 +92,7 @@ class AdminTest extends DuskTestCase
                 'admin' => true,
             ]);
 
-            /** @var User $user */
-            $user = create(User::class, [
+            create(User::class, [
                 'name' => 'John',
                 'email' => $userEmail,
                 'admin' => false,
@@ -105,7 +104,7 @@ class AdminTest extends DuskTestCase
                 ->assertSee('Users');
 
             $browser->clickLink('Users')      // route to Users page
-                ->waitForText($userEmail)        // wait for page to display
+                ->waitForText($userEmail)         // wait for page to display
                 ->click('@2-edit-button')  // click the edit button
                 ->waitForText('Admin')        // wait for edit page to display
                 ->screenshot('sample1')
@@ -118,80 +117,12 @@ class AdminTest extends DuskTestCase
                 ->screenshot('sample3')
             ;
 
-            /** @var User $adminValue */
-            $user = User::query()
-                ->where('email', $userEmail)
-                ->first();
-
-            $this->assertEquals(true, (bool) $user->getAttribute('admin'));
-        });
-    }
-
-    /**
-     * @throws \Throwable
-     */
-    public function temp()
-    {
-        $adminEmail = 'admin@admin.com';
-        $userEmail = 'john@doe.com';
-
-        $this->browse(function (Browser $browser) use ($adminEmail, $userEmail) {
-            /** @var User $admin */
-            $admin = create(User::class, [
-                'name' => 'Rich',
-                'email' => $adminEmail,
-                'admin' => true,
-            ]);
-
             /** @var User $user */
-            $user = create(User::class, [
-                'name' => 'John',
-                'email' => $userEmail,
-                'admin' => true,
-            ]);
-
-            $browser->loginAs($admin)
-                ->visit('/home')
-                ->assertSee('BloodPressureReadings')
-                ->assertSee('Users')
-                ->clickLink('Users')      // route to Users page
-                ->waitForText($userEmail)        // wait for page to display
-                ->screenshot('sample1')
-                ->click('@2-edit-button')  // click the edit button
-                ->waitForText('Edit User');    // wait for edit page to display
-
-
-            $browser->click('[id="admin"]')    // click the admin checkbox
-                ->screenshot('sample3')
-                ->press('Update User')      // press the update button
-                ->screenshot('sample2')
-                ->waitForText('The user was updated!')
-                ->assertSee('The user was updated!')
-                ->waitForText('Admin')        // wait for resultant page to display.
-                ->screenshot('sample3');
-
-            $browser->loginAs($admin)
-                ->visit('/home')
-                ->assertSee('BloodPressureReadings')
-                ->assertSee('Users');
-
-            $browser->clickLink('Users')      // route to Users page
-                ->waitForText($userEmail)         // wait for page to display
-                ->click('@2-edit-button')  // click the edit button
-                ->waitForText('Admin')        // wait for edit page to display
-                ->click('[id="admin"]')    // click the admin checkbox
-                ->press('Update User')      // press the update button
-                ->waitForText('The user was updated!')
-                ->assertSee('The user was updated!')
-                ->waitForText('Admin')        // wait for resultant page to display.
-                ->screenshot('sample1');
-
-            /** @var User $adminValue */
             $user = User::query()
                 ->where('email', $userEmail)
                 ->first();
 
-            $this->assertEquals(true, (bool) $user->getAttribute('admin'));
+            $this->assertTrue((bool) $user->getAttribute('admin'));
         });
     }
 
@@ -233,18 +164,18 @@ class AdminTest extends DuskTestCase
 //                ->screenshot('sample2')
             ;
 
-            $browser->clickLink('Users')      // route to Users page
-            ->waitForText($userEmail)        // wait for page to display
-            ->click('@2-edit-button')  // click the edit button
-            ->waitForText('Admin')        // wait for edit page to display
-            ->screenshot('sample3')
-                ->click('#admin > div')    // click the admin checkbox
-//                ->screenshot('sample4')
-                ->press('Update User')      // press the update button
-                ->waitForText('The user was updated!')
-                ->assertSee('The user was updated!')
-                ->waitForText('User Details') // wait for User Details page to display.
-//                ->screenshot('sample5')
+            $browser->clickLink('Users')          // route to Users page
+                ->waitForText($userEmail)             // wait for page to display
+                ->click('@2-edit-button')      // click the edit button
+                ->waitForText('Admin')            // wait for edit page to display
+                ->screenshot('sample3')
+                    ->click('#admin > div')    // click the admin checkbox
+    //                ->screenshot('sample4')
+                    ->press('Update User')      // press the update button
+                    ->waitForText('The user was updated!')
+                    ->assertSee('The user was updated!')
+                    ->waitForText('User Details') // wait for User Details page to display.
+    //                ->screenshot('sample5')
             ;
 
             $browser2
