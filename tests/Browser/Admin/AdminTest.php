@@ -107,14 +107,14 @@ class AdminTest extends DuskTestCase
                 ->waitForText($userEmail)         // wait for page to display
                 ->click('@2-edit-button')  // click the edit button
                 ->waitForText('Admin')        // wait for edit page to display
-                ->screenshot('sample1')
+//                ->screenshot('sample1')
                 ->click('#admin > div')    // click the admin checkbox
-                ->screenshot('sample2')
+//                ->screenshot('sample2')
                 ->press('Update User')      // press the update button
                 ->waitForText('The user was updated!')
                 ->assertSee('The user was updated!')
                 ->waitForText('User Details') // wait for User Details page to display.
-                ->screenshot('sample3')
+//                ->screenshot('sample3')
             ;
 
             /** @var User $user */
