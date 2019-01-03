@@ -38,35 +38,28 @@ class SystolicReading extends Trend
      */
     public function ranges()
     {
-        return [
-            90 => '90 Days',
-            60 => '60 Days',
-            30 => '30 Days',
-            10 => '10 Days',
-            5 => '5 Days',
-            1 => '1 Days',
-        ];
+        return BpColumnMaxReadingOf::BpColumnMaxReadingRanges;
     }
 
-    /**
-     * @return int
-     */
-    public function cacheFor(): int
-    {
-//         return now()->addMinutes(5);
+//    /**
+//     * @return int
+//     */
+//    public function cacheFor(): int
+//    {
+    ////         return now()->addMinutes(5);
+//
+//        return 0; // overrides cacheFor in Metric, which returns an int.
+//    }
 
-        return 0; // overrides cacheFor in Metric, which returns an int.
-    }
-
-    /**
-     * Get the URI key for the metric.
-     *
-     * @return string
-     */
-    public function uriKey(): string
-    {
-        return 'systolic-reading';
-    }
+//    /**
+//     * Get the URI key for the metric.
+//     *
+//     * @return string
+//     */
+//    public function uriKey(): string
+//    {
+//        return 'systolic-reading';
+//    }
 
     /**
      * @param Request $request

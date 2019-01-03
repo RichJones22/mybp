@@ -8,12 +8,20 @@ use App\BloodPressureReading;
 use Cake\Chronos\Chronos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Metrics\Trend;
 use Laravel\Nova\Metrics\TrendDateExpressionFactory;
 
 class BpColumnMaxReadingOf extends Trend
 {
+    const BpColumnMaxReadingRanges = [
+        90 => '90 Days',
+        60 => '60 Days',
+        30 => '30 Days',
+        10 => '10 Days',
+        5 => '5 Days',
+        1 => '1 Days',
+    ];
+
     public static function boot()
     {
         return new self();
@@ -42,7 +50,7 @@ class BpColumnMaxReadingOf extends Trend
         /** @var Collection $myResult */
         $results = $myBp
             ->newQuery()
-            ->select(DB::raw("{$expression} as date_result, max({$maxByColumn}) as aggregate"))
+            ->select(\DB::raw("{$expression} as date_result, max({$maxByColumn}) as aggregate"))
             ->groupby('date')
             ->orderBy('date')
             ->get();

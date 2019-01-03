@@ -68,7 +68,7 @@ class UserTest extends TestCase
             // route temp used to invoke CheckUserStateChange middleware.
         })->middleware(CheckUserStateChange::class);
 
-        // note:  actingAs does not perform a Events\Login event.
+        // note:  actingAs does not perform an Events\Login event.
         //        it performs a user 'Events\Authenticated' event.
         $this->actingAs($user)
             ->get('temp');

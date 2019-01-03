@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+declare(strict_types=1);
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Nova;
+namespace App\Http\Controllers;
 
 class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -26,10 +22,5 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
-    }
-
-    public function __invoke()
-    {
-        echo 'I have been invoked';
     }
 }

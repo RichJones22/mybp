@@ -12,10 +12,10 @@ use Laravel\Nova\Metrics\Trend;
 class DiastolicReading extends Trend
 {
     /** @var string */
-    public $name = 'Systolic Readings';
+    public $name = 'Diastolic Readings';
 
     /** @var string */
-    private $columnToMax = 'systolic';
+    private $columnToMax = 'diastolic';
 
     /**
      * Calculate the value of the metric.
