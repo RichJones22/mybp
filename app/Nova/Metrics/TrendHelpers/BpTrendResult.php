@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Nova\Metrics;
+namespace App\Nova\Metrics\TrendHelpers;
 
 use Laravel\Nova\Metrics\TrendResult;
 
