@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\BloodPressureReading;
-use App\Nova\Metrics\BpmReading;
-use App\Nova\Metrics\DiastolicReading;
-use App\Nova\Metrics\SystolicReading;
-use App\Nova\Metrics\TrendHelpers\BpColumnMaxReadingOf;
-use App\Nova\Metrics\TrendHelpers\BpTrendResult;
+use App\Nova\Metrics\Trends\Readings\ReadingsBase;
+use App\Nova\Metrics\Trends\Readings\ReadingsHelpers\BpColumnMaxReadingOf;
+use App\Nova\Metrics\Trends\Readings\ReadingsHelpers\BpTrendResult;
+use App\Nova\Metrics\Trends\Readings\Types\BpmReading;
+use App\Nova\Metrics\Trends\Readings\Types\DiastolicReading;
+use App\Nova\Metrics\Trends\Readings\Types\SystolicReading;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -107,8 +108,10 @@ class SystolicReadingTest extends TestCase
                 $myRanges = [];
 
                 Route::get('temp', function (Request $request) use ($reading, &$myResult, &$myRanges) {
+                    /** @var ReadingsBase $myDiastolicReading */
                     $myDiastolicReading = new $reading();
 
+                    /** @var array $myRanges */
                     $myRanges = $myDiastolicReading->ranges();
 
                     /** @var BpTrendResult $myResult */

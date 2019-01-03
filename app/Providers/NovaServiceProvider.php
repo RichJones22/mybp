@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Nova\BloodPressureReading;
-use App\Nova\Metrics\BpmReading;
-use App\Nova\Metrics\DiastolicReading;
-use App\Nova\Metrics\SystolicReading;
+use App\Nova\Metrics\Trends\Readings\Types\BpmReading;
+use App\Nova\Metrics\Trends\Readings\Types\DiastolicReading;
+use App\Nova\Metrics\Trends\Readings\Types\SystolicReading;
 use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Nova\Metrics\TrendHelpers;
+namespace App\Nova\Metrics\Trends\Readings\ReadingsHelpers;
 
 use App\BloodPressureReading;
 use Cake\Chronos\Chronos;

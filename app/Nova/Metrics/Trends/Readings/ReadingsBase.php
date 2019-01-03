@@ -2,20 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Nova\Metrics;
+namespace App\Nova\Metrics\Trends\Readings;
 
-use App\Nova\Metrics\TrendHelpers\BpColumnMaxReadingOf;
-use App\Nova\Metrics\TrendHelpers\BpTrendResult;
+use App\Nova\Metrics\Trends\Readings\ReadingsHelpers\BpColumnMaxReadingOf;
+use App\Nova\Metrics\Trends\Readings\ReadingsHelpers\BpTrendResult;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Trend;
 
-class BpmReading extends Trend
+class ReadingsBase extends Trend
 {
     /** @var string */
-    public $name = 'PBM Readings';
-
-    /** @var string */
-    private $columnToMax = 'bpm';
+    protected $columnToMax;
 
     /**
      * Calculate the value of the metric.
@@ -38,14 +35,7 @@ class BpmReading extends Trend
      */
     public function ranges()
     {
-        return [
-            90 => '90 Days',
-            60 => '60 Days',
-            30 => '30 Days',
-            10 => '10 Days',
-            5 => '5 Days',
-            1 => '1 Days',
-        ];
+        return BpColumnMaxReadingOf::BpColumnMaxReadingRanges;
     }
 
     /**
