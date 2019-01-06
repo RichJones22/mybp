@@ -2,81 +2,38 @@
 
 declare(strict_types=1);
 
-namespace App\Nova\Metrics;
+namespace App\Nova\Metrics\Trends\Readings\ReadingsHelpers;
 
 use App\BloodPressureReading;
 use Cake\Chronos\Chronos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Metrics\Trend;
 use Laravel\Nova\Metrics\TrendDateExpressionFactory;
 
-/**
- * Class BloodPressureReadingsPerDay.
- */
-class BloodPressureReadingsPerDay extends Trend
+class BpColumnMaxReadingOf extends Trend
 {
-    /** @var string */
-    public $name = 'Systolic Readings';
+    const BpColumnMaxReadingRanges = [
+        90 => '90 Days',
+        60 => '60 Days',
+        30 => '30 Days',
+        10 => '10 Days',
+        5 => '5 Days',
+        1 => '1 Days',
+    ];
 
-    /**
-     * Calculate the value of the metric.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return mixed
-     */
-    public function calculate(Request $request)
+    public static function boot()
     {
-        return $this
-            ->customCountByDays($request)
-            ->showMaxValue();
-    }
-
-    /**
-     * Get the ranges available for the metric.
-     *
-     * @return array
-     */
-    public function ranges()
-    {
-        return [
-            90 => '90 Days',
-            60 => '60 Days',
-            30 => '30 Days',
-            10 => '10 Days',
-            5 => '5 Days',
-            1 => '1 Days',
-        ];
-    }
-
-    /**
-     * @return int
-     */
-    public function cacheFor(): int
-    {
-//         return now()->addMinutes(5);
-
-        return 0; // overrides cacheFor in Metric, which returns an int.
-    }
-
-    /**
-     * Get the URI key for the metric.
-     *
-     * @return string
-     */
-    public function uriKey(): string
-    {
-        return 'blood-pressure-readings-per-day';
+        return new self();
     }
 
     /**
      * @param Request $request
+     * @param string  $maxByColumn
      *
      * @return BpTrendResult
      */
-    public function customCountByDays(Request $request): BpTrendResult
+    public function bpColumnMaxReadingOf(Request $request, string $maxByColumn): BpTrendResult
     {
         /** @var BloodPressureReading $myBp */
         $myBp = app(BloodPressureReading::class);
@@ -93,7 +50,7 @@ class BloodPressureReadingsPerDay extends Trend
         /** @var Collection $myResult */
         $results = $myBp
             ->newQuery()
-            ->select(DB::raw("{$expression} as date_result, max(systolic) as aggregate"))
+            ->select(\DB::raw("{$expression} as date_result, max({$maxByColumn}) as aggregate"))
             ->groupby('date')
             ->orderBy('date')
             ->get();

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Nova\Metrics;
+namespace App\Nova\Metrics\Trends\Readings\ReadingsHelpers;
 
 use Laravel\Nova\Metrics\TrendResult;
 
@@ -26,7 +26,7 @@ class BpTrendResult extends TrendResult
      */
     public function showMaxValue()
     {
-        if (\is_array($this->trend)) {
+        if (\is_array($this->trend) && \count($this->trend) > 0) {
             return $this->result(max($this->trend));
         }
 

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Nova\BloodPressureReading;
-use App\Nova\Metrics\BloodPressureReadingsPerDay;
+use App\Nova\Metrics\Trends\Readings\Types\BpmReading;
+use App\Nova\Metrics\Trends\Readings\Types\DiastolicReading;
+use App\Nova\Metrics\Trends\Readings\Types\SystolicReading;
 use App\Nova\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
@@ -63,7 +65,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         Gate::define('viewNova', function ($user) {
             return \in_array($user->email, [
-                \App\User::all()->toArray()
+                \App\User::all()->toArray(),
             ], true);
         });
     }
@@ -76,7 +78,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new BloodPressureReadingsPerDay(),
+            new SystolicReading(),
+            new DiastolicReading(),
+            new BpmReading(),
 //            new Help(),
         ];
     }
