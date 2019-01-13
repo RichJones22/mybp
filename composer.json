@@ -12,7 +12,7 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.7.*",
-        "laravel/nova": "*",
+        "laravel/nova": "1.1.8",
         "laravel/telescope": "^1.0",
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1"
@@ -57,8 +57,8 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "./nova"
+            "type": "composer",
+            "url": "https://nova.laravel.com"
         }
     ],
     "minimum-stability": "dev",

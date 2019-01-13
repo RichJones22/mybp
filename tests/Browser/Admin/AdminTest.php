@@ -181,7 +181,7 @@ class AdminTest extends DuskTestCase
             $browser2
 //                ->screenshot('sample7')
                 ->clickLink('BloodPressureReadings')
-                ->waitForText('Remember Me')
+                ->waitForText('Remember Me', 20)
                 ->assertSee('Remember Me')
 //                ->screenshot('sample8')
             ;
