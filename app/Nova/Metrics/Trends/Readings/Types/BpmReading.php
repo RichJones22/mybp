@@ -9,7 +9,7 @@ use App\Nova\Metrics\Trends\Readings\ReadingsBase;
 class BpmReading extends ReadingsBase
 {
     /** @var string */
-    public $name = 'PBM Readings';
+    public $name = 'BPM Readings';
 
     /** @var string */
     protected $columnToMax = 'bpm';
