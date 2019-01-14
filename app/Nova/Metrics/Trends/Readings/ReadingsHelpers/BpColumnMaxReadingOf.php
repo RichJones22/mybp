@@ -14,6 +14,7 @@ use Laravel\Nova\Metrics\TrendDateExpressionFactory;
 class BpColumnMaxReadingOf extends Trend
 {
     const BpColumnMaxReadingRanges = [
+        180 => '180 Days',
         90 => '90 Days',
         60 => '60 Days',
         30 => '30 Days',
@@ -64,20 +65,21 @@ class BpColumnMaxReadingOf extends Trend
             'true' === $request->twelveHourTime
         );
 
-        $results = array_merge($possibleDateResults, $results->mapWithKeys(function ($result) use ($request, $unit) {
+        $results = $results->mapWithKeys(function ($result) use ($request, $unit) {
             return [
                 $this->formatAggregateResultDate(
                     $result->date_result, $unit, 'true' === $request->twelveHourTime
                 ) => round($result->aggregate, 0),
             ];
-        })->all());
+        })->sort()->all();
 
-        if (\count($results) > $request->range) {
-            array_shift($results);
+        foreach ($results as $key => $value) {
+            if (isset($possibleDateResults[$key])) {
+                $possibleDateResults[$key] = $value;
+            }
         }
-
         $myResult = $this->result()->trend(
-            $results
+            $possibleDateResults
         );
 
         return (new BpTrendResult($myResult->value))->trend($myResult->trend);
