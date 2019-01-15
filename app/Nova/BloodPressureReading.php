@@ -53,7 +53,7 @@ class BloodPressureReading extends Resource
         return [
             ID::make()->sortable()->hideFromIndex(),
             DateTime::make('Date Recorded', 'date')
-                ->format('YYYY-MM-DD HH:MM:SS')
+                ->format('lll') // see moments.js for a list of formats.
                 ->creationRules('unique:blood_pressure_readings,date')
                 ->sortable(),
             Number::make('Systolic')->sortable(),

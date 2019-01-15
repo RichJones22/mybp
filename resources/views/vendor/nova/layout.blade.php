@@ -55,11 +55,13 @@
                 @yield('content')
 
                 <p class="mt-8 text-center text-xs text-80">
-                    <a href="https//www.premisesoftware.com" class="text-primary dim no-underline">Premise Software</a>
+                    &copy; {{ date('Y') }} <a href="https://www.premisesoftware.com" class="text-primary dim no-underline">Premise Software Solutions Inc., </a>
                     {{--<span class="px-1">&middot;</span>--}}
                     {{--&copy; {{ date('Y') }} Laravel LLC - By Taylor Otwell, David Hemphill, and Steve Schoger.--}}
                     {{--<span class="px-1">&middot;</span>--}}
-                    powered by Laravel Nova v{{ Laravel\Nova\Nova::version() }}
+                    powered by
+                    <a href="https://nova.laravel.com" class="text-primary dim no-underline"> Laravel Nova </a>
+                    v{{ Laravel\Nova\Nova::version() }}
                 </p>
             </div>
         </div>
