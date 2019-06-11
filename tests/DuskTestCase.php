@@ -33,8 +33,18 @@ abstract class DuskTestCase extends BaseTestCase
             '--disable-gpu',
             '--headless',
             '--window-size=1920,1080',
+            '--no-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-extensions',
+            'disable-infobars',
+            'start-maximized',
+            '--verbose',
+            '--log-path=' . storage_path("logs/chromedriver-errors.log"),
         ]);
 
+        if (env("CHROME_DRIVER_BIN_PATH")) {
+            $options->setBinary(env('CHROME_DRIVER_BIN_PATH'));
+        }
         return RemoteWebDriver::create(
             'http://localhost:9515', DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY, $options
