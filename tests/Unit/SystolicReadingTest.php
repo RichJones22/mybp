@@ -15,6 +15,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
@@ -96,7 +97,7 @@ class SystolicReadingTest extends TestCase
         $this->actingAs($this->user)
             ->get('temp');
 
-        $this->assertNull($myResult);
+        $this->assertEqualsCanonicalizing(0, $myResult);
     }
 
     public function testAllReadings()

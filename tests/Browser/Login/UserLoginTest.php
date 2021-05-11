@@ -27,7 +27,8 @@ class UserLoginTest extends DuskTestCase
 
             $browser->loginAs($user)
                 ->visit('/home')
-                ->assertSee('BloodPressureReadings')
+                ->screenshot('sample1')
+                ->assertSee('Blood Pressure Readings')
                 ->assertDontSee('Users');
         });
     }
@@ -45,7 +46,7 @@ class UserLoginTest extends DuskTestCase
 
             $browser->loginAs($user)
                 ->visit('/home')
-                ->assertSee('BloodPressureReadings')
+                ->assertSee('Blood Pressure Readings')
                 ->assertSee('Users');
         });
     }

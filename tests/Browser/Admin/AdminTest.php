@@ -31,15 +31,15 @@ class AdminTest extends DuskTestCase
 
             $browser->loginAs($admin)
                 ->visit('/home')
-                ->assertSee('BloodPressureReadings')
+                ->assertSee('Blood Pressure Readings')
                 ->assertSee('Users');
 
             $browser->clickLink('Users')      // route to Users page
                 ->waitForText($adminEmail)        // wait for page to display
                 ->click('@1-edit-button')  // click the edit button
-                ->waitForText('Admin')        // wait for edit page to display
+                ->waitForText('ADMIN')        // wait for edit page to display
 //                ->screenshot('sample1')
-                ->click('#admin > div')    // click the admin checkbox
+                ->click('#admin > checkbox')    // click the admin checkbox
 //                ->screenshot('sample2')
                 ->press('Update User')      // press the update button
                 ->waitForText(AdminCantChangeTheirAdminFlag::MESSAGE)
@@ -72,7 +72,8 @@ class AdminTest extends DuskTestCase
 
             $browser->loginAs($admin)
                 ->visit('/home')
-                ->assertSee('BloodPressureReadings')
+                ->screenshot('sample1')
+                ->assertSee('Blood Pressure Readings')
                 ->assertDontSee('Users');
         });
     }
@@ -100,7 +101,7 @@ class AdminTest extends DuskTestCase
 
             $browser->loginAs($admin)
                 ->visit('/home')
-                ->assertSee('BloodPressureReadings')
+                ->assertSee('Blood Pressure Readings')
                 ->assertSee('Users');
 
             $browser->clickLink('Users')      // route to Users page
