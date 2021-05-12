@@ -21,11 +21,12 @@ class CreateBloodPressureReadings extends Migration
 
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('date');
-            $table->integer('systolic');
-            $table->integer('diastolic');
-            $table->integer('bpm');
-            $table->timestamps();
+            $table->dateTime('date')->useCurrent();
+            $table->integer('systolic')->default(0);
+            $table->integer('diastolic')->default(0);
+            $table->integer('bpm')->default(0);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
 
         // create foreign key to User
