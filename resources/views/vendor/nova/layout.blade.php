@@ -38,14 +38,6 @@
         <!-- Content -->
         <div class="content">
             <div class="flex items-center relative shadow h-header bg-white z-20 px-6">
-                {{--<a href="{{ Config::get('nova.url') }}" class="no-underline dim font-bold text-90 mr-6">--}}
-                    {{--{{ Nova::name() }}--}}
-                {{--</a>--}}
-
-                {{--@if (count(Nova::globallySearchableResources(request())) > 0)--}}
-                    {{--<global-search></global-search>--}}
-                {{--@endif--}}
-
                 <dropdown class="ml-auto h-9 flex items-center" style="right: 20px">
                     @include('nova::partials.user')
                 </dropdown>
@@ -56,9 +48,6 @@
 
                 <p class="mt-8 text-center text-xs text-80">
                     &copy; {{ date('Y') }} <a href="https://www.premisesoftware.com" class="text-primary dim no-underline">Premise Software Solutions Inc., </a>
-                    {{--<span class="px-1">&middot;</span>--}}
-                    {{--&copy; {{ date('Y') }} Laravel LLC - By Taylor Otwell, David Hemphill, and Steve Schoger.--}}
-                    {{--<span class="px-1">&middot;</span>--}}
                     powered by
                     <a href="https://nova.laravel.com" class="text-primary dim no-underline"> Laravel Nova </a>
                     v{{ Laravel\Nova\Nova::version() }}
