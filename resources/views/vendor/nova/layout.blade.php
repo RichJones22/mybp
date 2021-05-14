@@ -49,6 +49,9 @@
                 <p class="mt-8 text-center text-xs text-80">
                     &copy; {{ date('Y') }} <a href="https://www.premisesoftware.com" class="text-primary dim no-underline">Premise Software Solutions Inc., </a>
                     powered by
+                    <a href="https://laravel.com" class="text-primary dim no-underline"> Laravel </a>
+                    v{{ app()->version() }}
+                    and
                     <a href="https://nova.laravel.com" class="text-primary dim no-underline"> Laravel Nova </a>
                     v{{ Laravel\Nova\Nova::version() }}
                 </p>
