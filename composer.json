@@ -13,7 +13,6 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/legacy-factories": "^1.1",
-        "laravel/nova": "^3.0",
         "laravel/telescope": "^4.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
@@ -55,12 +54,6 @@
             "tests/utilities/functions.php"
         ]
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
